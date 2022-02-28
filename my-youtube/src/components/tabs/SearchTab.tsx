@@ -6,9 +6,9 @@ import SearchIcon from '@mui/icons-material/Search';
 
 const SearchTab = () => {
   const [search, setSearch] = useState("");
-  const searching = (e: React.SyntheticEvent<EventTarget>) => {
-    e.preventDefault();
-    if(!search) return
+  const searching = (e?: React.KeyboardEvent<HTMLDivElement>)=> {
+    if (e?.key === "Enter") e?.preventDefault();
+    if (!search) return
     console.log(search);
   }
 
@@ -22,7 +22,7 @@ const SearchTab = () => {
         onChange={(e) => {
           setSearch(e.target.value);
         }}  />
-        <IconButton color="primary" type="submit" sx={{ p: '10px'}} onClick={(e) => searching(e)}>
+        <IconButton color="primary" type="submit" sx={{ p: '10px'}} onClick={() => searching()}>
             <SearchIcon />
         </IconButton>
       </Box>
