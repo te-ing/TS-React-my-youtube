@@ -3,13 +3,16 @@ import Box from '@mui/material/Box';
 import Input from '@mui/material/Input';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
+import { getSearch } from '@/api/axios';
+import SearchTabResults from './SearchTabResults';
 
 const SearchTab = () => {
   const [search, setSearch] = useState("");
-  const searching = (e?: React.KeyboardEvent<HTMLDivElement>)=> {
+  const [searchResult, setSearchResult] = useState("");
+  const searching = async (e?: React.KeyboardEvent<HTMLDivElement>)=> {
     if (e?.key === "Enter") e?.preventDefault();
     if (!search) return
-    console.log(search);
+    setSearchResult(await getSearch(search));
   }
 
   return (
@@ -27,7 +30,7 @@ const SearchTab = () => {
         </IconButton>
       </Box>
     </Box>
-      <Box>{search}</Box>
+    <SearchTabResults />
   </>
   );
 }
