@@ -1,10 +1,9 @@
 import React from 'react';
 import { ISearchResult } from '@/types/ISearchResult';
 import { Card, Grid, Typography, Button, Box } from '@mui/material';
-import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import styled from '@emotion/styled';
 import { replaceSingleQuote } from '@/utils/ReplaceSingleQuote';
-import { setItem, getItem } from '@/hooks/storage';
+import SearchTabButton from './tabs/SearchTabButton';
 
 const Title = styled.div`
   font-size: 14px;
@@ -20,14 +19,7 @@ const dateToYMD = (data: string) => {
   return `${data.slice(0,4)}년 ${data.slice(5,7)}월 ${data.slice(8,10)}일`
 }
 
-const storeVideo = (item: ISearchResult) => { 
-  getItem("videos")
-   ? setItem("videos", JSON.stringify([...getItem("videos"), item]))
-  : setItem("videos", JSON.stringify([item]));
-  console.log(getItem("videos"))
-  }
-
-const SearchTabResults: React.FC<any> = ({ props }) => {
+const VideoGrid: React.FC<any> = ({ props, tab }) => {
 
   return (
     <>
@@ -36,7 +28,7 @@ const SearchTabResults: React.FC<any> = ({ props }) => {
         {props.map((item: ISearchResult, index: number) => 
         <Grid item xs={4} sm={4} md={4} key={index} >
             <iframe width="100%" height="250vw" key={item.id.videoId} title={item.id.videoId} src={`https://www.youtube.com/embed/${item.id.videoId}`}></iframe>
-            <Card sx={{ p: "4px"}}>
+            <Card sx={{ p: "4px", position: "relative"}}>
               <Title>
                 {replaceSingleQuote(item.snippet.title)}
               </Title>
@@ -46,8 +38,8 @@ const SearchTabResults: React.FC<any> = ({ props }) => {
               <Typography sx={{ fontSize: 12 }} color="text.secondary">
                 {dateToYMD(item.snippet.publishedAt)}
               </Typography>
-              <Box sx={{ display:"flex", justifyContent: "right", mt:"-30px"}}>
-                <Button variant="outlined" color="secondary" size="small" onClick={()=>storeVideo(item)}startIcon={<SaveAltIcon />}> 저장 </Button>
+              <Box data-item={JSON.stringify(item)} sx={{ display: "flex", gap: "4px", position: "absolute", right: "4px", bottom: "4px" }}>
+                <SearchTabButton prop={item}/>
               </Box>
             </Card>
           </Grid >
@@ -58,4 +50,4 @@ const SearchTabResults: React.FC<any> = ({ props }) => {
   );
 }
 
-export default SearchTabResults;
+export default VideoGrid;

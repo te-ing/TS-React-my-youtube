@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import Input from '@mui/material/Input';
-import IconButton from '@mui/material/IconButton';
-import SearchIcon from '@mui/icons-material/Search';
+import { Box, Input, IconButton, Button } from '@mui/material';
 import { getSearch, DUMMY } from '@/api/axios';
-import SearchTabResults from './SearchTabResults';
+import VideoGrid from '../VideoGrid';
+import {
+  DeleteOutline as DeleteOutlineIcon,
+  Search as SearchIcon,
+  SaveAlt as SaveAltIcon,
+} from "@mui/icons-material";
+import { ISearchResult } from '@/types/ISearchResult';
 
 const SearchTab = () => {
   const [search, setSearch] = useState("");
@@ -16,6 +19,7 @@ const SearchTab = () => {
       setSearchResult(await getSearch(search));
     }
   }
+
   return (
     <>
     <Box sx={{ display:"flex", justifyContent:"center", mb: "30px"}}>
@@ -31,7 +35,7 @@ const SearchTab = () => {
         </IconButton>
       </Box>
     </Box>
-      <SearchTabResults props={searchResult} />
+    <VideoGrid props={searchResult} tab="search" />
   </>
   );
 }
