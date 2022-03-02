@@ -69,7 +69,7 @@ export default function MainTabs() {
         본 영상
       </TabPanel>
       <TabPanel value={value} index={3}>
-        좋아요 한 영상
+        <StoredVideoTab tab="like" />
       </TabPanel>
     </Box>
   );

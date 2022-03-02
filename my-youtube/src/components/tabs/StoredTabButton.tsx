@@ -16,29 +16,41 @@ type Prop = {
 }
 
 const StoredTabButton = ({ prop, func }: Prop) => {
-	const [isLike, SetIsLike] = useState(false);
+	const [isLike, setIsLike] = useState(false);
+	useEffect(() => {
+		if (getItem("likeVideos")) {
+			if (getItem("likeVideos").includes(prop.videoId)) {
+				setIsLike(true);
+			}
+		}
+		return;
+  }, [prop.videoId]);
 
-	const removeVideo = (prop?: IVideo) => { 
-    // setItem("videos", JSON.stringify(getItem("videos").filter((video: IVideo) => video.videoId !== prop?.videoId)))
-    SetIsLike(!isLike);
-    console.log(prop)
+  const likeVideo = (prop?: IVideo) => { 
+    const propId = prop?.videoId
+		setIsLike(!isLike);
+		getItem("likeVideos")
+		? setItem("likeVideos", JSON.stringify([...getItem("likeVideos"), propId]))
+		: setItem("likeVideos", JSON.stringify([propId]));
+  }
+	const unLikeVideo = (prop?: IVideo) => { 
+		setIsLike(!isLike);
   }
   
 	return (
     <>
       {isLike ?
-        <IconButton color="secondary" size="small" onClick={() => removeVideo(prop)}>
+        <IconButton data-button="unlike" color="secondary" size="small" onClick={(e) => { func(e); unLikeVideo(prop);}} >
           <FavoriteIcon fontSize="small" />
         </IconButton>
         :
-        <IconButton color="secondary" size="small" onClick={() => removeVideo(prop)}>
+        <IconButton color="secondary" size="small" onClick={() => likeVideo(prop)}>
           <FavoriteBorderIcon fontSize="small" />
         </IconButton>
       }
-  <IconButton data-button="delete" color="secondary" size="small" onClick={(e) => func(e)}>
-      <DeleteOutlineIcon fontSize="small" />
-  </IconButton>
-
+    <IconButton data-button="delete" color="secondary" size="small" onClick={(e) => func(e)}>
+        <DeleteOutlineIcon fontSize="small" />
+    </IconButton>
   </>
   );
 }

@@ -24,13 +24,11 @@ const SearchTabButton = ({ prop }: Prop) => {
 		getItem("videos")
 		? setItem("videos", JSON.stringify([...getItem("videos"), prop]))
 		: setItem("videos", JSON.stringify([prop]));
-		console.log(getItem("videos"))
 	}
 
 	const removeVideo = (prop?: IVideo) => { 
 		SetIsStored(!isStored);
 		setItem("videos", JSON.stringify(getItem("videos").filter((video: IVideo)=> video.videoId !== prop?.videoId)))
-		console.log(getItem("videos"))
 	}
 
 	return (

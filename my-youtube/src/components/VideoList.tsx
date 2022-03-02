@@ -23,9 +23,10 @@ const dateToYMD = (data: string) => {
 type Props = {
   props: IVideo[];
   tab?: string;
+  func?: any;
 }
 
-const VideoList: React.FC<any> = ({ props, tab, func }: any) => {
+const VideoList: React.FC<any> = ({ props, tab, func }: Props) => {
   return (
     <>
     <article>
