@@ -1,6 +1,6 @@
 import React from 'react';
 import { IVideo } from '@/types/IVideo';
-import { Card, Grid, Typography, Button, Box } from '@mui/material';
+import { Card, Grid, Typography, Box } from '@mui/material';
 import styled from '@emotion/styled';
 import { replaceSingleQuote } from '@/utils/ReplaceSingleQuote';
 import SearchTabButton from './tabs/SearchTabButton';

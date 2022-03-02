@@ -3,11 +3,8 @@ import { Box, Input, IconButton, Button } from '@mui/material';
 import { getSearch, DUMMY } from '@/api/axios';
 import VideoGrid from '../VideoGrid';
 import {
-  DeleteOutline as DeleteOutlineIcon,
   Search as SearchIcon,
-  SaveAlt as SaveAltIcon,
 } from "@mui/icons-material";
-import { IVideo } from '@/types/IVideo';
 
 const SearchTab = () => {
   const [search, setSearch] = useState("");
