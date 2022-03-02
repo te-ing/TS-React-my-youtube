@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Input, IconButton, Button } from '@mui/material';
 import { getSearch, DUMMY } from '@/api/axios';
-import VideoGrid from '../VideoGrid';
+import VideoList from '../VideoList';
 import {
   Search as SearchIcon,
 } from "@mui/icons-material";
@@ -32,7 +32,7 @@ const SearchTab = () => {
         </IconButton>
       </Box>
     </Box>
-    <VideoGrid props={searchResult} tab="search" />
+    <VideoList props={searchResult} tab="search" />
   </>
   );
 }

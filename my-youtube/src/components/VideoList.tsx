@@ -24,7 +24,7 @@ type Props = {
   tab?: string;
 }
 
-const VideoGrid: React.FC<any> = ({ props, tab }: Props) => {
+const VideoList: React.FC<any> = ({ props, tab }: Props) => {
 
   return (
     <>
@@ -55,4 +55,4 @@ const VideoGrid: React.FC<any> = ({ props, tab }: Props) => {
   );
 }
 
-export default VideoGrid;
+export default VideoList;
