@@ -9,6 +9,7 @@ import {
   CheckCircle as CheckCircleIcon
 } from "@mui/icons-material";
 import SearchTab from './tabs/SearchTab';
+import StoredVideoTab from './tabs/StoredVideoTab';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -62,7 +63,7 @@ export default function MainTabs() {
         <SearchTab />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        볼 영상
+        <StoredVideoTab />
       </TabPanel>
       <TabPanel value={value} index={2}>
         본 영상

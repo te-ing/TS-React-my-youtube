@@ -44,7 +44,7 @@ const VideoList: React.FC<any> = ({ props, tab }: Props) => {
                 {dateToYMD(prop.date)}
               </Typography>
               <Box data-item={JSON.stringify(prop)} sx={{ display: "flex", gap: "4px", position: "absolute", right: "4px", bottom: "4px" }}>
-                <SearchTabButton prop={prop} />
+                {tab === "search" ? <SearchTabButton prop={prop} /> : ""}
               </Box>
             </Card>
           </Grid >

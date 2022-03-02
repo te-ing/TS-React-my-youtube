@@ -26,7 +26,7 @@ const SearchTab = () => {
         onKeyPress={(e)=> searching(e)}
         onChange={(e) => {
           setSearch(e.target.value);
-        }}  />
+        }} />
         <IconButton color="primary" type="button" sx={{ p: '10px'}} onClick={() => searching()}>
             <SearchIcon />
         </IconButton>
