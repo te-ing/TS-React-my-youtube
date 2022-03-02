@@ -50,7 +50,7 @@ export default function MainTabs() {
   };
 
   return (
-    <Box sx={{ width: '100%', }}>
+    <Box sx={{ width: '100%', mb: "10px"}}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider', }}>
         <Tabs value={value} onChange={handleChange} variant="scrollable">
           <Tab icon={<SearchIcon />} iconPosition="start" label="검색" {...a11yProps(0)} />
