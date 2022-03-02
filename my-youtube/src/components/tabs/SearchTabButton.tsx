@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { ISearchResult } from '@/types/ISearchResult';
+import { IVideo } from '@/types/IVideo';
 import { Button } from '@mui/material';
 import { setItem, getItem } from '@/hooks/storage';
 import { SaveAlt as SaveAltIcon, DeleteOutline as DeleteOutlineIcon } from "@mui/icons-material";
@@ -8,14 +8,14 @@ const SearchTabButton: React.FC<any> = ({prop}) => {
 	const [isStored, SetIsStored] = useState(false);
 	useEffect(() => {
 		if (getItem("videos")) {
-			if (getItem("videos").map((video: ISearchResult) => video.id.videoId).includes(prop.id.videoId)) {
+			if (getItem("videos").map((video: IVideo) => video.videoId).includes(prop.videoId)) {
 				SetIsStored(true);
 			}
 		}
 		return;
-  }, [prop.id.videoId]);
+  }, [prop.videoId]);
 		
-	const storeVideo = (prop?: ISearchResult) => { 
+	const storeVideo = (prop?: IVideo) => { 
 		SetIsStored(!isStored);
 		getItem("videos")
 		? setItem("videos", JSON.stringify([...getItem("videos"), prop]))
@@ -23,9 +23,9 @@ const SearchTabButton: React.FC<any> = ({prop}) => {
 		console.log(getItem("videos"))
 	}
 
-	const removeVideo = (prop?: ISearchResult) => { 
+	const removeVideo = (prop?: IVideo) => { 
 		SetIsStored(!isStored);
-		setItem("videos", JSON.stringify(getItem("videos").filter((video: ISearchResult)=> video.id.videoId !== prop?.id.videoId)))
+		setItem("videos", JSON.stringify(getItem("videos").filter((video: IVideo)=> video.videoId !== prop?.videoId)))
 		console.log(getItem("videos"))
 	}
 

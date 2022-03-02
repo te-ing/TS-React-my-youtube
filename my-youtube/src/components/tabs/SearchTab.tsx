@@ -7,7 +7,7 @@ import {
   Search as SearchIcon,
   SaveAlt as SaveAltIcon,
 } from "@mui/icons-material";
-import { ISearchResult } from '@/types/ISearchResult';
+import { IVideo } from '@/types/IVideo';
 
 const SearchTab = () => {
   const [search, setSearch] = useState("");

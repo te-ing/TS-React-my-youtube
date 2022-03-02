@@ -1,4 +1,6 @@
+import { FormattingSearchResult } from "@/utils/FormattingApiResult";
 import axios from "axios";
+
 const instance = axios.create({
   baseURL: 'https://www.googleapis.com/youtube/v3/',
   params: {
@@ -23,11 +25,10 @@ const getSearch = async (keyword = "", options = {}) => {
     .catch((error) => {
       console.log(error);
     });
-  console.log(returnResult.items);
-  return returnResult.items;
+  return FormattingSearchResult(returnResult.items);
 };
 
-const DUMMY = [
+const DUMMY = FormattingSearchResult([
     {
       "kind": "youtube#searchResult",
       "etag": "viEoivBDeezvh7A7Qa-aXVk_xC8",
@@ -368,6 +369,6 @@ const DUMMY = [
         "publishTime": "2017-09-13T11:00:13Z"
       }
     }
-  ];
+  ]);
 
 export { getSearch, DUMMY };

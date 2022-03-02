@@ -1,5 +1,5 @@
 import React from 'react';
-import { ISearchResult } from '@/types/ISearchResult';
+import { IVideo } from '@/types/IVideo';
 import { Card, Grid, Typography, Button, Box } from '@mui/material';
 import styled from '@emotion/styled';
 import { replaceSingleQuote } from '@/utils/ReplaceSingleQuote';
@@ -25,21 +25,21 @@ const VideoGrid: React.FC<any> = ({ props, tab }) => {
     <>
     <article>
       <Grid container columns={{ xs: 4, sm: 8, md: 12 }} spacing={2}>
-        {props.map((item: ISearchResult, index: number) => 
+        {props.map((prop: IVideo, index: number) => 
         <Grid item xs={4} sm={4} md={4} key={index} >
-            <iframe width="100%" height="250vw" key={item.id.videoId} title={item.id.videoId} src={`https://www.youtube.com/embed/${item.id.videoId}`}></iframe>
+            <iframe width="100%" height="250vw" key={prop.videoId} title={prop.videoId} src={`https://www.youtube.com/embed/${prop.videoId}`}></iframe>
             <Card sx={{ p: "4px", position: "relative"}}>
               <Title>
-                {replaceSingleQuote(item.snippet.title)}
+                {replaceSingleQuote(prop.title)}
               </Title>
               <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                {item.snippet.channelTitle}
+                {prop.channelTitle}
               </Typography>
               <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                {dateToYMD(item.snippet.publishedAt)}
+                {dateToYMD(prop.date)}
               </Typography>
-              <Box data-item={JSON.stringify(item)} sx={{ display: "flex", gap: "4px", position: "absolute", right: "4px", bottom: "4px" }}>
-                <SearchTabButton prop={item}/>
+              <Box data-item={JSON.stringify(prop)} sx={{ display: "flex", gap: "4px", position: "absolute", right: "4px", bottom: "4px" }}>
+                <SearchTabButton prop={prop} />
               </Box>
             </Card>
           </Grid >
