@@ -4,7 +4,11 @@ import { Button } from '@mui/material';
 import { setItem, getItem } from '@/hooks/storage';
 import { SaveAlt as SaveAltIcon, DeleteOutline as DeleteOutlineIcon } from "@mui/icons-material";
 
-const SearchTabButton: React.FC<any> = ({prop}) => {
+type Prop = {
+  prop: IVideo;
+}
+
+const SearchTabButton = ({ prop }: Prop) => {
 	const [isStored, SetIsStored] = useState(false);
 	useEffect(() => {
 		if (getItem("videos")) {

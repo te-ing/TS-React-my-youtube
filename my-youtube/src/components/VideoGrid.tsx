@@ -19,7 +19,12 @@ const dateToYMD = (data: string) => {
   return `${data.slice(0,4)}년 ${data.slice(5,7)}월 ${data.slice(8,10)}일`
 }
 
-const VideoGrid: React.FC<any> = ({ props, tab }) => {
+type Props = {
+  props: IVideo[];
+  tab?: string;
+}
+
+const VideoGrid: React.FC<any> = ({ props, tab }: Props) => {
 
   return (
     <>
