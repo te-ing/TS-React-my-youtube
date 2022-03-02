@@ -4,6 +4,7 @@ import { Card, Grid, Typography, Box } from '@mui/material';
 import styled from '@emotion/styled';
 import { replaceSingleQuote } from '@/utils/ReplaceSingleQuote';
 import SearchTabButton from './tabs/SearchTabButton';
+import StoredTabButton from './tabs/StoredTabButton';
 
 const Title = styled.div`
   font-size: 14px;
@@ -24,8 +25,7 @@ type Props = {
   tab?: string;
 }
 
-const VideoList: React.FC<any> = ({ props, tab }: Props) => {
-
+const VideoList: React.FC<any> = ({ props, tab, func }: any) => {
   return (
     <>
     <article>
@@ -43,8 +43,8 @@ const VideoList: React.FC<any> = ({ props, tab }: Props) => {
               <Typography sx={{ fontSize: 12 }} color="text.secondary">
                 {dateToYMD(prop.date)}
               </Typography>
-              <Box data-item={JSON.stringify(prop)} sx={{ display: "flex", gap: "4px", position: "absolute", right: "4px", bottom: "4px" }}>
-                {tab === "search" ? <SearchTabButton prop={prop} /> : ""}
+              <Box data-id={prop.videoId} sx={{ display: "flex", gap: "4px", position: "absolute", right: "4px", bottom: "4px" }}>
+                {tab === "search" ? <SearchTabButton prop={prop} /> : <StoredTabButton prop={prop} func={func} />}
               </Box>
             </Card>
           </Grid >
