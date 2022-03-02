@@ -1,8 +1,10 @@
 import React from 'react';
-import { searchProps } from '@/types/Search';
+import { ISearchResult } from '@/types/ISearchResult';
 import { Card, Grid, Typography, Button, Box } from '@mui/material';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import styled from '@emotion/styled';
+import { replaceSingleQuote } from '@/utils/ReplaceSingleQuote';
+import { setItem, getItem } from '@/hooks/storage';
 
 const Title = styled.div`
   font-size: 14px;
@@ -17,20 +19,21 @@ const Title = styled.div`
 const dateToYMD = (data: string) => {
   return `${data.slice(0,4)}년 ${data.slice(5,7)}월 ${data.slice(8,10)}일`
 }
-const replaceSingleQuote = (text: string) => {
-  while (text.includes("&#39;")) {
-    text = text.replace("&#39;", "'");
-  } 
-  return text
-}
 
-const SearchTabResults: React.FC<any> = ({props}) => {
-  
+const storeVideo = (item: ISearchResult) => { 
+  getItem("videos")
+   ? setItem("videos", JSON.stringify([...getItem("videos"), item]))
+  : setItem("videos", JSON.stringify([item]));
+  console.log(getItem("videos"))
+  }
+
+const SearchTabResults: React.FC<any> = ({ props }) => {
+
   return (
     <>
     <article>
       <Grid container columns={{ xs: 4, sm: 8, md: 12 }} spacing={2}>
-        {props.map((item: searchProps, index: number) => 
+        {props.map((item: ISearchResult, index: number) => 
         <Grid item xs={4} sm={4} md={4} key={index} >
             <iframe width="100%" height="250vw" key={item.id.videoId} title={item.id.videoId} src={`https://www.youtube.com/embed/${item.id.videoId}`}></iframe>
             <Card sx={{ p: "4px"}}>
@@ -44,7 +47,7 @@ const SearchTabResults: React.FC<any> = ({props}) => {
                 {dateToYMD(item.snippet.publishedAt)}
               </Typography>
               <Box sx={{ display:"flex", justifyContent: "right", mt:"-30px"}}>
-                <Button variant="outlined" color="secondary" size="small" startIcon={<SaveAltIcon />}> 저장 </Button>
+                <Button variant="outlined" color="secondary" size="small" onClick={()=>storeVideo(item)}startIcon={<SaveAltIcon />}> 저장 </Button>
               </Box>
             </Card>
           </Grid >
