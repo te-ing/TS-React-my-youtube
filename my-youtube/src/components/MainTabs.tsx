@@ -66,7 +66,7 @@ export default function MainTabs() {
         <StoredVideoTab />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        본 영상
+        <StoredVideoTab tab="watch" />
       </TabPanel>
       <TabPanel value={value} index={3}>
         <StoredVideoTab tab="like" />

@@ -36,16 +36,16 @@ const VideoList: React.FC<any> = ({ props, tab, func }: Props) => {
             <iframe width="100%" height="250vw" key={prop.videoId} title={prop.videoId} src={`https://www.youtube.com/embed/${prop.videoId}`}></iframe>
             <Card sx={{ p: "4px", position: "relative"}}>
               <Title>
-                {replaceSingleQuote(prop.title)}
+                {prop.title && replaceSingleQuote(prop.title)}
               </Title>
               <Typography sx={{ fontSize: 12 }} color="text.secondary">
                 {prop.channelTitle}
               </Typography>
               <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                {dateToYMD(prop.date)}
+                {prop.date && dateToYMD(prop.date)}
               </Typography>
               <Box data-id={prop.videoId} sx={{ display: "flex", gap: "4px", position: "absolute", right: "4px", bottom: "4px" }}>
-                {tab === "search" ? <SearchTabButton prop={prop} /> : <StoredTabButton prop={prop} func={func} />}
+                {tab === "search" ? <SearchTabButton prop={prop} /> : <StoredTabButton prop={prop} func={func} tab={tab}/>}
               </Box>
             </Card>
           </Grid >
