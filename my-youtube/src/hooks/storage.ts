@@ -20,3 +20,20 @@ export const getItem = (key: string, defaultValue?: string) => {
     return defaultValue
   }
 }
+
+export const addItem = (key: string, defaultValue?: string) => {
+  try {
+    const storedValue = storage.getItem(key)
+
+    if (storedValue) {
+      storage.setItem(key, JSON.stringify([defaultValue, ...getItem(key)]))
+      return JSON.parse(storedValue)
+    } else {
+      storage.setItem(key, JSON.stringify([defaultValue]));
+    }
+    return defaultValue
+  } catch(e) {
+    console.log(e)
+    return defaultValue
+  }
+}
