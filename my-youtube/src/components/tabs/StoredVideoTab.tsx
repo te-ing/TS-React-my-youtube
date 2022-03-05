@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { setItem, getItem } from '@/hooks/storage';
+import { setItem, getItem, addItem } from '@/hooks/storage';
 import VideoList from '../VideoList';
 import { IVideo } from '@/types/IVideo';
 
@@ -41,9 +41,7 @@ const StoredVideoTab = ({ tab }: Prop) => {
       tab === "like" && setStoredVideo(getItem("videos").filter((video: IVideo) => getItem("likeVideos").includes(video.videoId)));
     }
     if (button === "watch") {
-      getItem("watchVideos")
-      ? setItem("watchVideos", JSON.stringify([...getItem("watchVideos"), id]))
-      : setItem("watchVideos", JSON.stringify([id]));
+      addItem("watchVideos",id)
       !tab && setStoredVideo(getItem("videos").filter((video: IVideo) => !getItem("watchVideos").includes(video.videoId)));
     }
     if (button === "notwatch") {

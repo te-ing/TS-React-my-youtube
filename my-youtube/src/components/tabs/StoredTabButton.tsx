@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { IVideo } from '@/types/IVideo';
 import { Button, IconButton } from '@mui/material';
-import { setItem, getItem } from '@/hooks/storage';
+import { getItem, addItem } from '@/hooks/storage';
 import {
   SaveAlt as SaveAltIcon,
   DeleteOutline as DeleteOutlineIcon,
@@ -45,10 +45,8 @@ const StoredTabButton = ({ prop, func, tab }: Prop) => {
 
   const likeVideo = (prop?: IVideo) => { 
     const propId = prop?.videoId
-		setIsLike(!isLike);
-		getItem("likeVideos")
-		? setItem("likeVideos", JSON.stringify([...getItem("likeVideos"), propId]))
-		: setItem("likeVideos", JSON.stringify([propId]));
+    setIsLike(!isLike);
+    addItem("likeVideos", propId);
   }
 	const likeVideoToggle = (prop?: IVideo) => { 
 		setIsLike(!isLike);
