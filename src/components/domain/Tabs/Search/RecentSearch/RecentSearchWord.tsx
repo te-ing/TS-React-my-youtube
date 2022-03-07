@@ -3,11 +3,14 @@ import { Chip, Stack } from "@mui/material";
 import { getItem, setItem } from "@/utils/storage";
 
 type RecentSearchWordProps = {
-  func: any; // React.FC;
+  searching: any; // React.FC;
   searchComplete: boolean;
 };
 
-const RecentSearchWord = ({ func, searchComplete }: RecentSearchWordProps) => {
+const RecentSearchWord = ({
+  searching,
+  searchComplete,
+}: RecentSearchWordProps) => {
   const [words, setWords] = useState(getItem("search"));
   useEffect(() => {
     setWords(getItem("search"));
@@ -25,7 +28,7 @@ const RecentSearchWord = ({ func, searchComplete }: RecentSearchWordProps) => {
 
   const handleClick = (e: SyntheticEvent) => {
     const clickedWord = e.currentTarget.textContent;
-    func(clickedWord);
+    searching(clickedWord);
   };
   return (
     <>
