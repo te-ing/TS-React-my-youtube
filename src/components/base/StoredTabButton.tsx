@@ -1,7 +1,7 @@
 import React, { MouseEventHandler, useEffect, useState } from "react";
 import { IVideo } from "@/types/video";
 import { IconButton } from "@mui/material";
-import { getItem, addItem, setItem } from "@/utils/storage";
+import { getItem, setItem } from "@/utils/storage";
 import {
   DeleteOutline as DeleteOutlineIcon,
   FavoriteBorder as FavoriteBorderIcon,
@@ -13,11 +13,11 @@ import { toggleVideoLikeStatus, toggleVideoWatchStatus } from "@/utils/video";
 
 type video = {
   video: IVideo;
-  buttonClick: () => void;
+  buttonClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
 const StoredTabButton = ({ video, buttonClick }: video) => {
-  const [isWatched, setIsWatched] = useState(video.status.watch);
+  const [isWatched, setIsWatched] = useState({});
   const [isLike, setIsLike] = useState(video.status.like);
 
   const handleWatch: MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -30,11 +30,11 @@ const StoredTabButton = ({ video, buttonClick }: video) => {
         )
       )
     );
-    setIsWatched(!isWatched);
-    buttonClick();
+    buttonClick(e);
+    setIsWatched(video.status.watch);
   };
 
-  const handleLike = (e: React.MouseEvent) => {
+  const handleLike: MouseEventHandler<HTMLButtonElement> = (e) => {
     const id = e.currentTarget.parentElement?.dataset.id;
     setItem(
       "videos",
@@ -44,7 +44,19 @@ const StoredTabButton = ({ video, buttonClick }: video) => {
         )
       )
     );
-    setIsLike(!isLike);
+    buttonClick(e);
+    setIsLike(video.status.like);
+  };
+
+  const handleDelete: MouseEventHandler<HTMLButtonElement> = (e) => {
+    const id = e.currentTarget.parentElement?.dataset.id;
+    setItem(
+      "videos",
+      JSON.stringify(
+        getItem("videos").filter((video: IVideo) => video.videoId !== id)
+      )
+    );
+    buttonClick(e);
   };
 
   return (
@@ -54,16 +66,16 @@ const StoredTabButton = ({ video, buttonClick }: video) => {
           <CheckCircleIcon fontSize="small" />
         ) : (
           <CheckCircleOutlineIcon fontSize="small" />
-        )}{" "}
+        )}
       </IconButton>
       <IconButton color="secondary" size="small" onClick={handleLike}>
         {isLike ? (
           <FavoriteIcon fontSize="small" />
         ) : (
           <FavoriteBorderIcon fontSize="small" />
-        )}{" "}
+        )}
       </IconButton>
-      <IconButton data-button="delete" color="secondary" size="small">
+      <IconButton color="secondary" size="small" onClick={handleDelete}>
         <DeleteOutlineIcon fontSize="small" />
       </IconButton>
     </>

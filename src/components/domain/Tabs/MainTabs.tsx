@@ -9,9 +9,9 @@ import {
   CheckCircle as CheckCircleIcon,
 } from "@mui/icons-material";
 import SearchTab from "./Search/SearchTab";
-import StoredVideoTab from "./NotWatch/StoredVideoTab";
 import LikeVideoTab from "./Like/LikeVideoTab";
 import NotWatchTab from "./NotWatch/NotWatchTab";
+import WatchTab from "./Watch/WatchTab";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -83,7 +83,7 @@ export default function MainTabs() {
         <NotWatchTab />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <StoredVideoTab tab="watch" />
+        <WatchTab />
       </TabPanel>
       <TabPanel value={value} index={3}>
         <LikeVideoTab />

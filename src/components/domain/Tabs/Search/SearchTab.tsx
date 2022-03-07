@@ -17,7 +17,7 @@ const SearchTab = () => {
   const [searchComplete, setsearchComplete] = useState(false);
   const [searchResult, setSearchResult] = useState(DUMMY);
 
-  const searching = async (e?: Searching) => {
+  const searching = async (e: Searching) => {
     if (typeof e === "string") setSearchResult(await getSearch(e));
     if (e?.key === "Enter" || !e) {
       e?.preventDefault();
@@ -63,13 +63,19 @@ const SearchTab = () => {
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <Box sx={searchBoxStyle}>
             <RecentSearchWord
-              func={searching}
+              searching={searching}
               searchComplete={searchComplete}
             />
           </Box>
         </Box>
       </Box>
-      {/* <VideoList videos={searchResult} tab="search" /> */}
+      <VideoList
+        videos={searchResult}
+        tab="search"
+        buttonClick={function (): void {
+          throw new Error("Function not implemented.");
+        }}
+      />
     </>
   );
 };

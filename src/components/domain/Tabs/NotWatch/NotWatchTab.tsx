@@ -8,15 +8,13 @@ const NotWatchTab = () => {
     getItem("videos").filter((video: IVideo) => video.status.watch === false)
   );
 
-  const testF = () => {
-    console.log("동작");
+  const updateTab = () => {
+    setNotWatchVideos(
+      getItem("videos").filter((video: IVideo) => video.status.watch === false)
+    );
   };
 
-  return (
-    <>
-      <VideoList videos={notWatchVideos} buttonClick={testF} />
-    </>
-  );
+  return <VideoList videos={notWatchVideos} buttonClick={updateTab} />;
 };
 
 export default NotWatchTab;
