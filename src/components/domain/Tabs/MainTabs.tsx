@@ -1,16 +1,17 @@
-import React, { SyntheticEvent, useState} from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
+import React, { SyntheticEvent, useState } from "react";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
 import {
   Search as SearchIcon,
   Subscriptions as SubscriptionsIcon,
   Favorite as FavoriteIcon,
-  CheckCircle as CheckCircleIcon
+  CheckCircle as CheckCircleIcon,
 } from "@mui/icons-material";
-import SearchTab from './Search/SearchTab';
-import StoredVideoTab from './NotWatch/StoredVideoTab';
-import LikeVideoTab from './Like/LikeVideoTab';
+import SearchTab from "./Search/SearchTab";
+import StoredVideoTab from "./NotWatch/StoredVideoTab";
+import LikeVideoTab from "./Like/LikeVideoTab";
+import NotWatchTab from "./NotWatch/NotWatchTab";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -22,12 +23,7 @@ function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`${index}`}
-      {...other}
-    >
+    <div role="tabpanel" hidden={value !== index} id={`${index}`} {...other}>
       {value === index && (
         <Box sx={{ p: 3 }}>
           <Box>{children}</Box>
@@ -51,20 +47,40 @@ export default function MainTabs() {
   };
 
   return (
-    <Box sx={{ width: '100%', mb: "10px"}}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider', }}>
+    <Box sx={{ width: "100%", mb: "10px" }}>
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs value={value} onChange={handleChange} variant="scrollable">
-          <Tab icon={<SearchIcon />} iconPosition="start" label="검색" {...a11yProps(0)} />
-          <Tab icon={<SubscriptionsIcon />} iconPosition="start" label="볼 영상" {...a11yProps(1)} />
-          <Tab icon={<CheckCircleIcon />} iconPosition="start" label="본 영상" {...a11yProps(2)} />
-          <Tab icon={<FavoriteIcon />} iconPosition="start" label="좋아요 한 영상" {...a11yProps(3)} />
+          <Tab
+            icon={<SearchIcon />}
+            iconPosition="start"
+            label="검색"
+            {...a11yProps(0)}
+          />
+          <Tab
+            icon={<SubscriptionsIcon />}
+            iconPosition="start"
+            label="볼 영상"
+            {...a11yProps(1)}
+          />
+          <Tab
+            icon={<CheckCircleIcon />}
+            iconPosition="start"
+            label="본 영상"
+            {...a11yProps(2)}
+          />
+          <Tab
+            icon={<FavoriteIcon />}
+            iconPosition="start"
+            label="좋아요 한 영상"
+            {...a11yProps(3)}
+          />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
         <SearchTab />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <StoredVideoTab />
+        <NotWatchTab />
       </TabPanel>
       <TabPanel value={value} index={2}>
         <StoredVideoTab tab="watch" />

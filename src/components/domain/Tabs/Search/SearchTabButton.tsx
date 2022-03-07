@@ -1,45 +1,75 @@
-import React, {useEffect, useState} from 'react';
-import { IVideo } from '@/types/IVideo';
-import { Button } from '@mui/material';
-import { setItem, getItem } from '@/hooks/storage';
-import { SaveAlt as SaveAltIcon, DeleteOutline as DeleteOutlineIcon } from "@mui/icons-material";
+import React, { useEffect, useState } from "react";
+import { IVideo } from "@/types/video";
+import { Button } from "@mui/material";
+import { setItem, getItem } from "@/utils/storage";
+import {
+  SaveAlt as SaveAltIcon,
+  DeleteOutline as DeleteOutlineIcon,
+} from "@mui/icons-material";
 
 type Prop = {
   prop: IVideo;
-}
+};
 
 const SearchTabButton = ({ prop }: Prop) => {
-	const [isStored, SetIsStored] = useState(false);
-	useEffect(() => {
-		if (getItem("videos")) {
-			if (getItem("videos").map((video: IVideo) => video.videoId).includes(prop.videoId)) {
-				SetIsStored(true);
-			}
-		}
-		return;
+  const [isStored, SetIsStored] = useState(false);
+  useEffect(() => {
+    if (getItem("videos")) {
+      if (
+        getItem("videos")
+          .map((video: IVideo) => video.videoId)
+          .includes(prop.videoId)
+      ) {
+        SetIsStored(true);
+      }
+    }
+    return;
   }, [prop.videoId]);
-		
-	const storeVideo = (prop?: IVideo) => { 
-		SetIsStored(!isStored);
-		getItem("videos")
-		? setItem("videos", JSON.stringify([...getItem("videos"), prop]))
-		: setItem("videos", JSON.stringify([prop]));
-	}
 
-	const removeVideo = (prop?: IVideo) => { 
-		SetIsStored(!isStored);
-		setItem("videos", JSON.stringify(getItem("videos").filter((video: IVideo)=> video.videoId !== prop?.videoId)))
-	}
+  const storeVideo = (prop?: IVideo) => {
+    SetIsStored(!isStored);
+    getItem("videos")
+      ? setItem("videos", JSON.stringify([...getItem("videos"), prop]))
+      : setItem("videos", JSON.stringify([prop]));
+  };
 
-	return (
-	<>
-		{isStored ?
-			<Button variant="outlined" color="secondary" size="small" onClick={() => removeVideo(prop)} startIcon={<DeleteOutlineIcon />}>삭제</Button>
-			:
-			<Button variant="outlined" color="secondary" size="small" onClick={() => storeVideo(prop)} startIcon={<SaveAltIcon />}>저장</Button>
-		}
-  </>
+  const removeVideo = (prop?: IVideo) => {
+    SetIsStored(!isStored);
+    setItem(
+      "videos",
+      JSON.stringify(
+        getItem("videos").filter(
+          (video: IVideo) => video.videoId !== prop?.videoId
+        )
+      )
+    );
+  };
+
+  return (
+    <>
+      {isStored ? (
+        <Button
+          variant="outlined"
+          color="secondary"
+          size="small"
+          onClick={() => removeVideo(prop)}
+          startIcon={<DeleteOutlineIcon />}
+        >
+          삭제
+        </Button>
+      ) : (
+        <Button
+          variant="outlined"
+          color="secondary"
+          size="small"
+          onClick={() => storeVideo(prop)}
+          startIcon={<SaveAltIcon />}
+        >
+          저장
+        </Button>
+      )}
+    </>
   );
-}
+};
 
 export default SearchTabButton;

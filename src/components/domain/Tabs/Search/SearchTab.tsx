@@ -1,12 +1,10 @@
-import React, { useState, SyntheticEvent } from 'react';
-import { Box, Input, IconButton } from '@mui/material';
-import { getSearch, DUMMY } from '@/api/axios';
-import VideoList from '../../../base/VideoList';
-import {
-  Search as SearchIcon,
-} from "@mui/icons-material";
-import RecentSearchWord from './RecentSearch/RecentSearchWord';
-import { addItem, getItem } from '@/hooks/storage';
+import React, { useState, SyntheticEvent } from "react";
+import { Box, Input, IconButton } from "@mui/material";
+import { getSearch, DUMMY } from "@/api/axios";
+import VideoList from "../../../base/VideoList";
+import { Search as SearchIcon } from "@mui/icons-material";
+import RecentSearchWord from "./RecentSearch/RecentSearchWord";
+import { addItem, getItem } from "@/utils/storage";
 
 const searchBoxStyle = { width: "80%", maxWidth: "480px" };
 
@@ -18,48 +16,62 @@ const SearchTab = () => {
   const [search, setSearch] = useState("");
   const [searchComplete, setsearchComplete] = useState(false);
   const [searchResult, setSearchResult] = useState(DUMMY);
-  
+
   const searching = async (e?: Searching) => {
     if (typeof e === "string") setSearchResult(await getSearch(e));
     if (e?.key === "Enter" || !e) {
       e?.preventDefault();
-      if (!search) return
+      if (!search) return;
       if (!getItem("search")) {
         setSearchResult(await getSearch(search));
         addItem("search", search);
         setsearchComplete(!searchComplete);
-      } else if(!getItem("search").includes(search)){
+      } else if (!getItem("search").includes(search)) {
         setSearchResult(await getSearch(search));
         addItem("search", search);
         setsearchComplete(!searchComplete);
       }
-      setSearch("")
+      setSearch("");
     }
-  } 
+  };
 
   return (
     <>
-    <Box sx={{ display:"flex", flexDirection: "column", mb: "10px"}}>
-      <Box component="form" sx={{display:"flex",justifyContent:"center"}}>
-          <Input placeholder="검색어를 입력하세요" sx={searchBoxStyle}
-        value={search}
-        onKeyPress={searching}
-        onChange={(e) => {
-          setSearch(e.target.value);
-        }} />
-        <IconButton color="primary" type="button" sx={{ p: '10px'}} onClick={searching}>
+      <Box sx={{ display: "flex", flexDirection: "column", mb: "10px" }}>
+        <Box
+          component="form"
+          sx={{ display: "flex", justifyContent: "center" }}
+        >
+          <Input
+            placeholder="검색어를 입력하세요"
+            sx={searchBoxStyle}
+            value={search}
+            onKeyPress={searching}
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+          />
+          <IconButton
+            color="primary"
+            type="button"
+            sx={{ p: "10px" }}
+            onClick={searching}
+          >
             <SearchIcon />
-        </IconButton>
+          </IconButton>
         </Box>
-        <Box sx={{display:"flex",justifyContent:"center"}}>
-              <Box sx={searchBoxStyle}>
-            <RecentSearchWord func={searching} searchComplete={searchComplete} />
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <Box sx={searchBoxStyle}>
+            <RecentSearchWord
+              func={searching}
+              searchComplete={searchComplete}
+            />
           </Box>
         </Box>
-    </Box>
-    <VideoList props={searchResult} tab="search" />
-  </>
+      </Box>
+      {/* <VideoList videos={searchResult} tab="search" /> */}
+    </>
   );
-}
+};
 
 export default SearchTab;
