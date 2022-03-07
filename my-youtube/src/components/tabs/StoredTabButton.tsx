@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState } from 'react';
 import { IVideo } from '@/types/IVideo';
-import { Button, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { getItem, addItem } from '@/hooks/storage';
 import {
-  SaveAlt as SaveAltIcon,
   DeleteOutline as DeleteOutlineIcon,
   FavoriteBorder as FavoriteBorderIcon,
   CheckCircleOutline as CheckCircleOutlineIcon,
@@ -12,7 +11,7 @@ import {
 } from "@mui/icons-material";
 type Prop = {
   prop: IVideo;
-  func?: any;
+  func: React.FC<React.MouseEvent<HTMLButtonElement, MouseEvent>>;
   tab?: string;
 }
 
@@ -71,7 +70,7 @@ const StoredTabButton = ({ prop, func, tab }: Prop) => {
           <FavoriteBorderIcon fontSize="small" />
         </IconButton>
       }
-    <IconButton data-button="delete" color="secondary" size="small" onClick={(e) => func(e)}>
+    <IconButton data-button="delete" color="secondary" size="small" onClick={func}>
         <DeleteOutlineIcon fontSize="small" />
     </IconButton>
   </>

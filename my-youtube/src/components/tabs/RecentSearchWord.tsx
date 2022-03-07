@@ -1,8 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, SyntheticEvent } from 'react';
 import { Chip , Stack , } from '@mui/material';
 import { getItem, setItem } from '@/hooks/storage';
 
-const RecentSearchWord = ({ func, searchComplete }: any) => {
+type RecentSearchWordProps = {
+  func: any // React.FC;
+  searchComplete: boolean;
+}
+
+const RecentSearchWord = ({ func, searchComplete }: RecentSearchWordProps) => {
   const [words, setWords] = useState(getItem("search"));
   useEffect(() => {
     setWords(getItem("search"));
@@ -10,15 +15,15 @@ const RecentSearchWord = ({ func, searchComplete }: any) => {
   }, [searchComplete])
 
   
-  const handleDelete = (e: any) => {
-    const clickedWord = e.currentTarget.previousElementSibling?.innerText;
+  const handleDelete = (e: SyntheticEvent) => {
+    const clickedWord = e.currentTarget.previousElementSibling?.innerHTML;
     const filteredItem = getItem("search").filter((search: string) => search !== clickedWord)
     setWords(filteredItem);
     setItem("search", JSON.stringify(filteredItem));
   };
 
-  const handleClick = (e: any) => {
-    const clickedWord = e.currentTarget.innerText;
+  const handleClick = (e: SyntheticEvent) => {
+    const clickedWord = e.currentTarget.textContent;
     func(clickedWord);
   };
   return (

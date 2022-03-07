@@ -20,13 +20,13 @@ const dateToYMD = (data: string) => {
   return `${data.slice(0,4)}년 ${data.slice(5,7)}월 ${data.slice(8,10)}일`
 }
 
-type Props = {
+type VideoListProps = {
   props: IVideo[];
   tab?: string;
   func?: any;
 }
 
-const VideoList: React.FC<any> = ({ props, tab, func }: Props) => {
+const VideoList = ({ props, tab, func }: VideoListProps) => {
   return (
     <>
     <article>

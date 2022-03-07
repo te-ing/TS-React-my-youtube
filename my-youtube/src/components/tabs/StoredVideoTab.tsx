@@ -19,7 +19,7 @@ const StoredVideoTab = ({ tab }: Prop) => {
       }
       else
       try {
-          setStoredVideo(getItem("videos").filter((video: IVideo) => !getItem("watchVideos").includes(video.videoId)))    
+        setStoredVideo(getItem("videos").filter((video: IVideo) => !getItem("watchVideos").includes(video.videoId)))    
       } catch (error) {
         setStoredVideo(getItem("videos"))
         }
@@ -27,9 +27,22 @@ const StoredVideoTab = ({ tab }: Prop) => {
 		return;
   }, [tab]);
 
-  const storedButtonHandler = (e: any) => {
-    const id = e.currentTarget.parentNode.dataset.id;
-    const button = e.currentTarget.dataset.button;
+  
+  interface ButtonEvent{
+    parentNode: ParentNode;
+    dataset: Dataset;
+  }
+  type Dataset = {
+    id: string;
+    button: string;
+  }
+  type ParentNode = {
+    dataset: Dataset
+  }
+
+  const storedButtonHandler = (e: React.MouseEvent<ButtonEvent>) => {
+    const id = e.currentTarget.parentNode.dataset.id
+    const button = e.currentTarget.dataset.button
     if (button === "delete") {
       setStoredVideo(storedVideo.filter((video: IVideo) => video.videoId !== id));
       setItem("videos", JSON.stringify(getItem("videos").filter((video: IVideo) => video.videoId !== id)));
@@ -52,7 +65,7 @@ const StoredVideoTab = ({ tab }: Prop) => {
 
   return (
     <>
-      <VideoList props={storedVideo} func={(e: React.MouseEvent<HTMLDivElement>) => storedButtonHandler(e)} tab={tab} />
+      <VideoList props={storedVideo} func={storedButtonHandler} tab={tab} />
   </>
   );
 }

@@ -45,7 +45,7 @@ function a11yProps(index: number) {
 export default function MainTabs() {
   const [value, setValue] = useState(0);
 
-  const handleChange = (event: SyntheticEvent, newValue: number) => {
+  const handleChange = (e: SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
