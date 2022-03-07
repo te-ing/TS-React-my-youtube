@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { setItem, getItem, addItem } from '@/hooks/storage';
-import VideoList from '../VideoList';
+import VideoList from '../../../base/VideoList';
 import { IVideo } from '@/types/IVideo';
 
 type Prop = {

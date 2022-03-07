@@ -1,11 +1,11 @@
 import React, { useState, SyntheticEvent } from 'react';
 import { Box, Input, IconButton } from '@mui/material';
 import { getSearch, DUMMY } from '@/api/axios';
-import VideoList from '../VideoList';
+import VideoList from '../../../base/VideoList';
 import {
   Search as SearchIcon,
 } from "@mui/icons-material";
-import RecentSearchWord from './RecentSearchWord';
+import RecentSearchWord from './RecentSearch/RecentSearchWord';
 import { addItem, getItem } from '@/hooks/storage';
 
 const searchBoxStyle = { width: "80%", maxWidth: "480px" };

@@ -3,8 +3,6 @@ import { IVideo } from '@/types/IVideo';
 import { Card, Grid, Typography, Box } from '@mui/material';
 import styled from '@emotion/styled';
 import { replaceSingleQuote } from '@/utils/ReplaceSingleQuote';
-import SearchTabButton from './tabs/SearchTabButton';
-import StoredTabButton from './tabs/StoredTabButton';
 
 const Title = styled.div`
   font-size: 14px;
@@ -20,32 +18,31 @@ const dateToYMD = (data: string) => {
   return `${data.slice(0,4)}년 ${data.slice(5,7)}월 ${data.slice(8,10)}일`
 }
 
-type VideoListProps = {
-  props: IVideo[];
-  tab?: string;
-  func?: any;
+type VideoGridProps = {
+  videos: IVideo[];
+  children?: React.ReactNode;
 }
 
-const VideoList = ({ props, tab, func }: VideoListProps) => {
+const VideoGrid = ({ videos, children }: VideoGridProps) => {
   return (
     <>
     <article>
       <Grid container columns={{ xs: 4, sm: 8, md: 12 }} spacing={2}>
-        {props.map((prop: IVideo, index: number) => 
+        {videos?.map((video: IVideo, index: number) => 
         <Grid item xs={4} sm={4} md={4} key={index} >
-            <iframe width="100%" height="250vw" key={prop.videoId} title={prop.videoId} src={`https://www.youtube.com/embed/${prop.videoId}`}></iframe>
+            <iframe width="100%" height="250vw" key={video.videoId} title={video.videoId} src={`https://www.youtube.com/embed/${video.videoId}`}></iframe>
             <Card sx={{ p: "4px", position: "relative"}}>
               <Title>
-                {prop.title && replaceSingleQuote(prop.title)}
+                {video.title && replaceSingleQuote(video.title)}
               </Title>
               <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                {prop.channelTitle}
+                {video.channelTitle}
               </Typography>
               <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                {prop.date && dateToYMD(prop.date)}
+                {video.date && dateToYMD(video.date)}
               </Typography>
-              <Box data-id={prop.videoId} sx={{ display: "flex", gap: "4px", position: "absolute", right: "4px", bottom: "4px" }}>
-                {tab === "search" ? <SearchTabButton prop={prop} /> : <StoredTabButton prop={prop} func={func} tab={tab}/>}
+              <Box data-id={video.videoId} sx={{ display: "flex", gap: "4px", position: "absolute", right: "4px", bottom: "4px" }}>
+                {children}
               </Box>
             </Card>
           </Grid >
@@ -56,4 +53,4 @@ const VideoList = ({ props, tab, func }: VideoListProps) => {
   );
 }
 
-export default VideoList;
+export default VideoGrid;

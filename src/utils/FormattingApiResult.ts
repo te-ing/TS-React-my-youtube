@@ -12,6 +12,7 @@ export const FormattingSearchResult = (result: ISearchResult[]) => {
       date,
       channelTitle,
       channelId,
+      "status": {"watch": false, "like": false}
     }
   })
   return videoData;

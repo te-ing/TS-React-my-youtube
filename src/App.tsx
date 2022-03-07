@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from '@/components/Header';
-import MainTabs from '@/components/MainTabs';
+import Header from '@/components/base/Header';
+import MainTabs from '@/components/domain/Tabs/MainTabs';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '@/styles/theme';
 
