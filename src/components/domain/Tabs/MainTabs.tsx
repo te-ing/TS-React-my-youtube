@@ -8,8 +8,9 @@ import {
   Favorite as FavoriteIcon,
   CheckCircle as CheckCircleIcon
 } from "@mui/icons-material";
-import SearchTab from './tabs/SearchTab';
-import StoredVideoTab from './tabs/StoredVideoTab';
+import SearchTab from './Search/SearchTab';
+import StoredVideoTab from './NotWatch/StoredVideoTab';
+import LikeVideoTab from './Like/LikeVideoTab';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -69,7 +70,7 @@ export default function MainTabs() {
         <StoredVideoTab tab="watch" />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <StoredVideoTab tab="like" />
+        <LikeVideoTab />
       </TabPanel>
     </Box>
   );
