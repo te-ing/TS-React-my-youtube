@@ -23,7 +23,7 @@ const dateToYMD = (data: string) => {
 type VideoListProps = {
   videos: IVideo[];
   tab?: string;
-  buttonClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  buttonClick: () => void;
 };
 
 const VideoList = ({ videos, tab, buttonClick }: VideoListProps) => {

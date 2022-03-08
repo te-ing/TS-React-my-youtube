@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useEffect, useState } from "react";
+import React, { MouseEventHandler, useState } from "react";
 import { IVideo } from "@/types/video";
 import { IconButton } from "@mui/material";
 import { getItem, setItem } from "@/utils/storage";
@@ -13,11 +13,11 @@ import { toggleVideoLikeStatus, toggleVideoWatchStatus } from "@/utils/video";
 
 type video = {
   video: IVideo;
-  buttonClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  buttonClick: () => void;
 };
 
 const StoredTabButton = ({ video, buttonClick }: video) => {
-  const [isWatched, setIsWatched] = useState({});
+  const [isWatched, setIsWatched] = useState(video.status.watch);
   const [isLike, setIsLike] = useState(video.status.like);
 
   const handleWatch: MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -30,7 +30,7 @@ const StoredTabButton = ({ video, buttonClick }: video) => {
         )
       )
     );
-    buttonClick(e);
+    buttonClick();
     setIsWatched(video.status.watch);
   };
 
@@ -44,7 +44,7 @@ const StoredTabButton = ({ video, buttonClick }: video) => {
         )
       )
     );
-    buttonClick(e);
+    buttonClick();
     setIsLike(video.status.like);
   };
 
@@ -56,7 +56,7 @@ const StoredTabButton = ({ video, buttonClick }: video) => {
         getItem("videos").filter((video: IVideo) => video.videoId !== id)
       )
     );
-    buttonClick(e);
+    buttonClick();
   };
 
   return (
