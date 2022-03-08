@@ -3,8 +3,8 @@ import { Chip, Stack } from "@mui/material";
 import { getItem, setItem } from "@/utils/storage";
 
 type RecentSearchWordProps = {
-  searching: any; // React.FC;
   searchComplete: boolean;
+  searching: (arg: React.SyntheticEvent<Element, Event>) => void;
 };
 
 const RecentSearchWord = ({
@@ -27,9 +27,9 @@ const RecentSearchWord = ({
   };
 
   const handleClick = (e: SyntheticEvent) => {
-    const clickedWord = e.currentTarget.textContent;
-    searching(clickedWord);
+    searching(e);
   };
+
   return (
     <>
       <Stack direction="row" spacing={1} sx={{ p: "10px 0", overflow: "auto" }}>

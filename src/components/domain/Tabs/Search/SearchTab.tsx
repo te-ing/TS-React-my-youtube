@@ -18,8 +18,7 @@ const SearchTab = () => {
   const [searchResult, setSearchResult] = useState(DUMMY);
 
   const searching = async (e: Searching) => {
-    if (typeof e === "string") setSearchResult(await getSearch(e));
-    if (e?.key === "Enter" || !e) {
+    if (e?.key === "Enter" || e.type === "click") {
       e?.preventDefault();
       if (!search) return;
       if (!getItem("search")) {
@@ -33,6 +32,10 @@ const SearchTab = () => {
       }
       setSearch("");
     }
+  };
+  const recentSearch = async (e: React.SyntheticEvent<Element, Event>) => {
+    const recentSearchWord = e.currentTarget.textContent;
+    setSearchResult(await getSearch(recentSearchWord as string));
   };
 
   return (
@@ -63,19 +66,13 @@ const SearchTab = () => {
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <Box sx={searchBoxStyle}>
             <RecentSearchWord
-              searching={searching}
+              searching={recentSearch}
               searchComplete={searchComplete}
             />
           </Box>
         </Box>
       </Box>
-      <VideoList
-        videos={searchResult}
-        tab="search"
-        buttonClick={function (): void {
-          throw new Error("Function not implemented.");
-        }}
-      />
+      <VideoList videos={searchResult} tab="search" buttonClick={() => null} />
     </>
   );
 };
