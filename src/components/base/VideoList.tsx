@@ -31,7 +31,7 @@ const VideoList = ({ videos, tab, buttonClick }: VideoListProps) => {
     <>
       <article>
         <Grid container columns={{ xs: 4, sm: 8, md: 12 }} spacing={2}>
-          {videos.map((prop: IVideo, index: number) => (
+          {videos?.map((prop: IVideo, index: number) => (
             <Grid item xs={4} sm={4} md={4} key={index}>
               <iframe
                 width="100%"

@@ -5,13 +5,12 @@ import VideoList from "@/components/base/VideoList";
 
 const WatchTab = () => {
   const [watchVideos, setWatchVideos] = useState(
-    getItem("videos").filter((video: IVideo) => video.status.watch === true)
+    getItem("videos")?.filter((video: IVideo) => video.status.watch === true)
   );
 
   const updateTab = () => {
-    console.log(getItem("videos"));
     setWatchVideos(
-      getItem("videos").filter((video: IVideo) => video.status.watch === true)
+      getItem("videos")?.filter((video: IVideo) => video.status.watch === true)
     );
   };
 

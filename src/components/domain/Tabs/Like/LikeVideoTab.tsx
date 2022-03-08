@@ -5,12 +5,12 @@ import VideoList from "@/components/base/VideoList";
 
 const LikeVideoTab = () => {
   const [likeVideos, setLikeVideos] = useState(
-    getItem("videos").filter((video: IVideo) => video.status.like === true)
+    getItem("videos")?.filter((video: IVideo) => video.status.like === true)
   );
 
   const updateTab = () => {
     setLikeVideos(
-      getItem("videos").filter((video: IVideo) => video.status.like === true)
+      getItem("videos")?.filter((video: IVideo) => video.status.like === true)
     );
   };
 
