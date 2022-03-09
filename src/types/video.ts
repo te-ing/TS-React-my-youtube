@@ -46,3 +46,7 @@ export interface IVideoStatus {
   watch: boolean;
   like: boolean;
 }
+
+export interface IVideoProp {
+  video: IVideo;
+}

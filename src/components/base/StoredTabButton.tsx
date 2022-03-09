@@ -1,5 +1,5 @@
 import React, { MouseEventHandler, useEffect, useState } from "react";
-import { IVideo } from "@/types/video";
+import { IVideo, IVideoProp } from "@/types/video";
 import { IconButton } from "@mui/material";
 import { getItem, setItem } from "@/utils/storage";
 import {
@@ -11,12 +11,11 @@ import {
 } from "@mui/icons-material";
 import { toggleVideoLikeStatus, toggleVideoWatchStatus } from "@/utils/video";
 
-type video = {
-  video: IVideo;
+interface IStoredTabButton extends IVideoProp {
   buttonClick: () => void;
-};
+}
 
-const StoredTabButton = ({ video, buttonClick }: video) => {
+const StoredTabButton = ({ video, buttonClick }: IStoredTabButton) => {
   const [isWatched, setIsWatched] = useState({});
   const [isLike, setIsLike] = useState({});
 

@@ -59,7 +59,7 @@ const VideoList = ({ videos, tab, buttonClick }: VideoListProps) => {
                   }}
                 >
                   {tab === "search" ? (
-                    <SearchTabButton prop={prop} />
+                    <SearchTabButton video={prop} />
                   ) : (
                     <StoredTabButton video={prop} buttonClick={buttonClick} />
                   )}

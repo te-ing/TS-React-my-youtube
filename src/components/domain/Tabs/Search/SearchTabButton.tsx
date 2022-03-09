@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { IVideo } from "@/types/video";
+import { IVideo, IVideoProp } from "@/types/video";
 import { Button } from "@mui/material";
 import { setItem, getItem } from "@/utils/storage";
 import {
@@ -7,39 +7,35 @@ import {
   DeleteOutline as DeleteOutlineIcon,
 } from "@mui/icons-material";
 
-type Prop = {
-  prop: IVideo;
-};
-
-const SearchTabButton = ({ prop }: Prop) => {
+const SearchTabButton = ({ video }: IVideoProp) => {
   const [isStored, SetIsStored] = useState(false);
   useEffect(() => {
     if (getItem("videos")) {
       if (
         getItem("videos")
           .map((video: IVideo) => video.videoId)
-          .includes(prop.videoId)
+          .includes(video.videoId)
       ) {
         SetIsStored(true);
       }
     }
     return;
-  }, [prop.videoId]);
+  }, [video.videoId]);
 
-  const storeVideo = (prop?: IVideo) => {
+  const storeVideo = (video?: IVideo) => {
     SetIsStored(!isStored);
     getItem("videos")
-      ? setItem("videos", JSON.stringify([...getItem("videos"), prop]))
-      : setItem("videos", JSON.stringify([prop]));
+      ? setItem("videos", JSON.stringify([...getItem("videos"), video]))
+      : setItem("videos", JSON.stringify([video]));
   };
 
-  const removeVideo = (prop?: IVideo) => {
+  const removeVideo = (video?: IVideo) => {
     SetIsStored(!isStored);
     setItem(
       "videos",
       JSON.stringify(
         getItem("videos").filter(
-          (video: IVideo) => video.videoId !== prop?.videoId
+          (video: IVideo) => video.videoId !== video?.videoId
         )
       )
     );
@@ -52,7 +48,7 @@ const SearchTabButton = ({ prop }: Prop) => {
           variant="outlined"
           color="secondary"
           size="small"
-          onClick={() => removeVideo(prop)}
+          onClick={() => removeVideo(video)}
           startIcon={<DeleteOutlineIcon />}
         >
           삭제
@@ -62,7 +58,7 @@ const SearchTabButton = ({ prop }: Prop) => {
           variant="outlined"
           color="secondary"
           size="small"
-          onClick={() => storeVideo(prop)}
+          onClick={() => storeVideo(video)}
           startIcon={<SaveAltIcon />}
         >
           저장
