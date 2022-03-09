@@ -18,7 +18,7 @@ const SearchTabButton = ({ video }: IVideoProp) => {
           .includes(video.videoId)
       ) {
         SetIsStored(true);
-      }
+      } else SetIsStored(false);
     }
     return;
   }, [video.videoId]);
