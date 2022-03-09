@@ -4,11 +4,11 @@ import { getItem, setItem } from "@/utils/storage";
 
 type RecentSearchWordProps = {
   searchComplete: boolean;
-  searching: (arg: React.SyntheticEvent<Element, Event>) => void;
+  search: (arg: React.SyntheticEvent<Element, Event>) => void;
 };
 
 const RecentSearchWord = ({
-  searching,
+  search,
   searchComplete,
 }: RecentSearchWordProps) => {
   const [words, setWords] = useState(getItem("search"));
@@ -27,7 +27,7 @@ const RecentSearchWord = ({
   };
 
   const handleClick = (e: SyntheticEvent) => {
-    searching(e);
+    search(e);
   };
 
   return (

@@ -1,38 +1,29 @@
-import React, { useState, SyntheticEvent } from "react";
-import { Box, Input, IconButton } from "@mui/material";
+import React, { useState } from "react";
+import { Box } from "@mui/material";
 import { getSearch, DUMMY } from "@/api/axios";
 import VideoList from "../../../base/VideoList";
-import { Search as SearchIcon } from "@mui/icons-material";
-import RecentSearchWord from "./RecentSearch/RecentSearchWord";
+import RecentSearchWord from "./RecentSearchWord";
 import { addItem, getItem } from "@/utils/storage";
+import SearchTabInput from "./SearchTabInput";
 
 const searchBoxStyle = { width: "80%", maxWidth: "480px" };
 
-interface Searching extends SyntheticEvent {
-  key?: string;
-}
-
 const SearchTab = () => {
-  const [search, setSearch] = useState("");
   const [searchComplete, setsearchComplete] = useState(false);
   const [searchResult, setSearchResult] = useState(DUMMY);
 
-  const searching = async (e: Searching) => {
-    if (e?.key === "Enter" || e.type === "click") {
-      e?.preventDefault();
-      if (!search) return;
-      if (!getItem("search")) {
-        setSearchResult(await getSearch(search));
-        addItem("search", search);
-        setsearchComplete(!searchComplete);
-      } else if (!getItem("search").includes(search)) {
-        setSearchResult(await getSearch(search));
-        addItem("search", search);
-        setsearchComplete(!searchComplete);
-      }
-      setSearch("");
+  const searchInput = async (searchValue: string) => {
+    if (!getItem("search")) {
+      setSearchResult(await getSearch(searchValue));
+      addItem("search", searchValue);
+      setsearchComplete(!searchComplete);
+    } else if (!getItem("search").includes(searchValue)) {
+      setSearchResult(await getSearch(searchValue));
+      addItem("search", searchValue);
+      setsearchComplete(!searchComplete);
     }
   };
+
   const recentSearch = async (e: React.SyntheticEvent<Element, Event>) => {
     const recentSearchWord = e.currentTarget.textContent;
     setSearchResult(await getSearch(recentSearchWord as string));
@@ -41,32 +32,11 @@ const SearchTab = () => {
   return (
     <>
       <Box sx={{ display: "flex", flexDirection: "column", mb: "10px" }}>
-        <Box
-          component="form"
-          sx={{ display: "flex", justifyContent: "center" }}
-        >
-          <Input
-            placeholder="검색어를 입력하세요"
-            sx={searchBoxStyle}
-            value={search}
-            onKeyPress={searching}
-            onChange={(e) => {
-              setSearch(e.target.value);
-            }}
-          />
-          <IconButton
-            color="primary"
-            type="button"
-            sx={{ p: "10px" }}
-            onClick={searching}
-          >
-            <SearchIcon />
-          </IconButton>
-        </Box>
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <Box sx={searchBoxStyle}>
+            <SearchTabInput search={searchInput} />
             <RecentSearchWord
-              searching={recentSearch}
+              search={recentSearch}
               searchComplete={searchComplete}
             />
           </Box>

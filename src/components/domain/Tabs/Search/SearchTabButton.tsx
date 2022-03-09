@@ -9,6 +9,7 @@ import {
 
 const SearchTabButton = ({ video }: IVideoProp) => {
   const [isStored, SetIsStored] = useState(false);
+
   useEffect(() => {
     if (getItem("videos")) {
       if (
