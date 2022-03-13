@@ -10,12 +10,15 @@ import {
   Favorite as FavoriteIcon,
 } from "@mui/icons-material";
 import { toggleVideoLikeStatus, toggleVideoWatchStatus } from "@/utils/video";
+import { useSnackbar } from "notistack";
+import { replaceSingleQuote } from "@/utils/replaceSingleQuote";
 
 interface IStoredTabButton extends IVideoProp {
   buttonClick: () => void;
 }
 
 const StoredTabButton = ({ video, buttonClick }: IStoredTabButton) => {
+  const { enqueueSnackbar } = useSnackbar();
   const [isWatched, setIsWatched] = useState({});
   const [isLike, setIsLike] = useState({});
 
@@ -36,6 +39,15 @@ const StoredTabButton = ({ video, buttonClick }: IStoredTabButton) => {
       )
     );
     buttonClick();
+    isWatched
+      ? enqueueSnackbar(
+          `${replaceSingleQuote(video?.title)} 영상을 시청 예정입니다.`,
+          { variant: "error" }
+        )
+      : enqueueSnackbar(
+          `${replaceSingleQuote(video?.title)} 영상을 시청하였습니다.`,
+          { variant: "success" }
+        );
   };
 
   const handleLike: MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -49,6 +61,15 @@ const StoredTabButton = ({ video, buttonClick }: IStoredTabButton) => {
       )
     );
     buttonClick();
+    isLike
+      ? enqueueSnackbar(
+          `${replaceSingleQuote(video?.title)} 영상을 좋아요를 취소합니다.`,
+          { variant: "error" }
+        )
+      : enqueueSnackbar(
+          `${replaceSingleQuote(video?.title)} 영상의 좋아합니다.`,
+          { variant: "success" }
+        );
   };
 
   const handleDelete: MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -60,6 +81,9 @@ const StoredTabButton = ({ video, buttonClick }: IStoredTabButton) => {
       )
     );
     buttonClick();
+    enqueueSnackbar(`${replaceSingleQuote(video?.title)} 영상을 삭제합니다.`, {
+      variant: "error",
+    });
   };
 
   return (

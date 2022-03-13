@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { IVideo, IVideoProp } from "@/types/video";
 import { Button } from "@mui/material";
 import { setItem, getItem } from "@/utils/storage";
@@ -6,8 +6,11 @@ import {
   SaveAlt as SaveAltIcon,
   DeleteOutline as DeleteOutlineIcon,
 } from "@mui/icons-material";
+import { useSnackbar } from "notistack";
+import { replaceSingleQuote } from "@/utils/replaceSingleQuote";
 
 const SearchTabButton = ({ video }: IVideoProp) => {
+  const { enqueueSnackbar } = useSnackbar();
   const [isStored, SetIsStored] = useState(false);
 
   useEffect(() => {
@@ -28,6 +31,9 @@ const SearchTabButton = ({ video }: IVideoProp) => {
     getItem("videos")
       ? setItem("videos", JSON.stringify([...getItem("videos"), video]))
       : setItem("videos", JSON.stringify([video]));
+    enqueueSnackbar(`${replaceSingleQuote(video?.title)} 영상을 저장합니다.`, {
+      variant: "success",
+    });
   };
 
   const removeVideo = (video?: IVideo) => {
@@ -40,6 +46,9 @@ const SearchTabButton = ({ video }: IVideoProp) => {
         )
       )
     );
+    enqueueSnackbar(`${video?.title} 영상을 삭제합니다.`, {
+      variant: "error",
+    });
   };
 
   return (
