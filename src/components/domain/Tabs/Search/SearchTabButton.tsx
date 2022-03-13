@@ -8,6 +8,7 @@ import {
 } from "@mui/icons-material";
 import { useSnackbar } from "notistack";
 import { replaceSingleQuote } from "@/utils/replaceSingleQuote";
+import { DELETE_VIDEO_MSG, STORE_VIDEO_MSG } from "@/constants/snackbarMessage";
 
 const SearchTabButton = ({ video }: IVideoProp) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -31,7 +32,7 @@ const SearchTabButton = ({ video }: IVideoProp) => {
     getItem("videos")
       ? setItem("videos", JSON.stringify([...getItem("videos"), video]))
       : setItem("videos", JSON.stringify([video]));
-    enqueueSnackbar(`${replaceSingleQuote(video?.title)} 영상을 저장합니다.`, {
+    enqueueSnackbar(`${replaceSingleQuote(video?.title)} ${STORE_VIDEO_MSG}`, {
       variant: "success",
     });
   };
@@ -46,7 +47,7 @@ const SearchTabButton = ({ video }: IVideoProp) => {
         )
       )
     );
-    enqueueSnackbar(`${video?.title} 영상을 삭제합니다.`, {
+    enqueueSnackbar(`${video?.title} ${DELETE_VIDEO_MSG}`, {
       variant: "error",
     });
   };

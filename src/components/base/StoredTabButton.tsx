@@ -12,6 +12,13 @@ import {
 import { toggleVideoLikeStatus, toggleVideoWatchStatus } from "@/utils/video";
 import { useSnackbar } from "notistack";
 import { replaceSingleQuote } from "@/utils/replaceSingleQuote";
+import {
+  DELETE_VIDEO_MSG,
+  LIKE_VIDEO_MSG,
+  NOT_LIKE_VIDEO_MSG,
+  NOT_WATCHED_VIDEO_MSG,
+  WATCHED_VIDEO_MSG,
+} from "@/constants/snackbarMessage";
 
 interface IStoredTabButton extends IVideoProp {
   buttonClick: () => void;
@@ -41,11 +48,11 @@ const StoredTabButton = ({ video, buttonClick }: IStoredTabButton) => {
     buttonClick();
     isWatched
       ? enqueueSnackbar(
-          `${replaceSingleQuote(video?.title)} 영상을 시청 예정입니다.`,
+          `${replaceSingleQuote(video?.title)} ${NOT_WATCHED_VIDEO_MSG}`,
           { variant: "error" }
         )
       : enqueueSnackbar(
-          `${replaceSingleQuote(video?.title)} 영상을 시청하였습니다.`,
+          `${replaceSingleQuote(video?.title)} ${WATCHED_VIDEO_MSG}`,
           { variant: "success" }
         );
   };
@@ -63,11 +70,11 @@ const StoredTabButton = ({ video, buttonClick }: IStoredTabButton) => {
     buttonClick();
     isLike
       ? enqueueSnackbar(
-          `${replaceSingleQuote(video?.title)} 영상을 좋아요를 취소합니다.`,
+          `${replaceSingleQuote(video?.title)} ${NOT_LIKE_VIDEO_MSG}`,
           { variant: "error" }
         )
       : enqueueSnackbar(
-          `${replaceSingleQuote(video?.title)} 영상의 좋아합니다.`,
+          `${replaceSingleQuote(video?.title)} ${LIKE_VIDEO_MSG}`,
           { variant: "success" }
         );
   };
@@ -81,7 +88,7 @@ const StoredTabButton = ({ video, buttonClick }: IStoredTabButton) => {
       )
     );
     buttonClick();
-    enqueueSnackbar(`${replaceSingleQuote(video?.title)} 영상을 삭제합니다.`, {
+    enqueueSnackbar(`${replaceSingleQuote(video?.title)} ${DELETE_VIDEO_MSG}`, {
       variant: "error",
     });
   };
