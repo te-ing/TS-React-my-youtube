@@ -61,6 +61,7 @@ const SearchTabButton = ({ video }: IVideoProp) => {
           size="small"
           onClick={() => removeVideo(video)}
           startIcon={<DeleteOutlineIcon />}
+          data-testid="searchTabDeleteButton"
         >
           삭제
         </Button>
@@ -71,6 +72,7 @@ const SearchTabButton = ({ video }: IVideoProp) => {
           size="small"
           onClick={() => storeVideo(video)}
           startIcon={<SaveAltIcon />}
+          data-testid="searchTabStoredButton"
         >
           저장
         </Button>
