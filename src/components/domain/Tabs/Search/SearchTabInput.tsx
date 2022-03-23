@@ -34,12 +34,14 @@ const SearchTabInput = ({ search }: SearchProps) => {
         onChange={(e) => {
           setSearchValue(e.target.value);
         }}
+        data-testid="searchTabInput"
       />
       <IconButton
         color="primary"
         type="button"
         sx={{ p: "10px" }}
         onClick={handleSearch}
+        data-testid="searchTabInputButton"
       >
         <SearchIcon />
       </IconButton>
