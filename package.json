@@ -59,6 +59,7 @@
     ]
   },
   "devDependencies": {
+    "@cypress/code-coverage": "^3.9.12",
     "craco-alias": "^3.0.1",
     "cypress": "^9.5.2",
     "cypress-react-selector": "^2.3.16",
