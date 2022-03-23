@@ -43,7 +43,7 @@ const SearchTabButton = ({ video }: IVideoProp) => {
       "videos",
       JSON.stringify(
         getItem("videos").filter(
-          (video: IVideo) => video.videoId !== video?.videoId
+          (getVideo: IVideo) => getVideo.videoId !== video?.videoId
         )
       )
     );
