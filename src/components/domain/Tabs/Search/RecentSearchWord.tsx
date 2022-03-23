@@ -41,7 +41,6 @@ const RecentSearchWord = ({
               variant="outlined"
               onClick={handleClick}
               onDelete={handleDelete}
-              data-testid="recentSearchWordChip"
             />
           );
         })}

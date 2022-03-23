@@ -97,32 +97,20 @@ const StoredTabButton = ({ video, buttonClick }: IStoredTabButton) => {
     <>
       <IconButton color="secondary" size="small" onClick={handleWatch}>
         {isWatched ? (
-          <CheckCircleIcon
-            fontSize="small"
-            data-testid="storedTabNotWatchButton"
-          />
+          <CheckCircleIcon fontSize="small" />
         ) : (
-          <CheckCircleOutlineIcon
-            fontSize="small"
-            data-testid="storedTabWatchButton"
-          />
+          <CheckCircleOutlineIcon fontSize="small" />
         )}
       </IconButton>
       <IconButton color="secondary" size="small" onClick={handleLike}>
         {isLike ? (
-          <FavoriteIcon fontSize="small" data-testid="storedTabNotLikeButton" />
+          <FavoriteIcon fontSize="small" />
         ) : (
-          <FavoriteBorderIcon
-            fontSize="small"
-            data-testid="storedTabLikeButton"
-          />
+          <FavoriteBorderIcon fontSize="small" />
         )}
       </IconButton>
       <IconButton color="secondary" size="small" onClick={handleDelete}>
-        <DeleteOutlineIcon
-          fontSize="small"
-          data-testid="storedTabDeleteButton"
-        />
+        <DeleteOutlineIcon fontSize="small" />
       </IconButton>
     </>
   );

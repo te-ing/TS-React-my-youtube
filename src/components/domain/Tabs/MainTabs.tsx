@@ -55,28 +55,24 @@ export default function MainTabs() {
             iconPosition="start"
             label="검색"
             {...a11yProps(0)}
-            data-testid="searchTab"
           />
           <Tab
             icon={<SubscriptionsIcon />}
             iconPosition="start"
             label="볼 영상"
             {...a11yProps(1)}
-            data-testid="notWatchTab"
           />
           <Tab
             icon={<CheckCircleIcon />}
             iconPosition="start"
             label="본 영상"
             {...a11yProps(2)}
-            data-testid="watchTab"
           />
           <Tab
             icon={<FavoriteIcon />}
             iconPosition="start"
             label="좋아요 한 영상"
             {...a11yProps(3)}
-            data-testid="likeVideoTab"
           />
         </Tabs>
       </Box>

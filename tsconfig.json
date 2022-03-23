@@ -7,7 +7,6 @@
       "dom.iterable",
       "esnext"
     ],
-    "types": ["node", "cypress", "cypress-react-selector"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -23,7 +22,6 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src",
-    "**/*.ts"
+    "src"
   ]
 }
