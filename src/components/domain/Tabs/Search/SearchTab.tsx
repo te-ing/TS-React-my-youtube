@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
-import { getSearch, DUMMY } from "@/api/axios";
+import { getSearch } from "@/api/axios";
 import VideoList from "../../../base/VideoList";
 import RecentSearchWord from "./RecentSearchWord";
 import { addItem, getItem } from "@/utils/storage";
@@ -10,7 +10,7 @@ const searchBoxStyle = { width: "80%", maxWidth: "480px" };
 
 const SearchTab = () => {
   const [searchComplete, setsearchComplete] = useState(false);
-  const [searchResult, setSearchResult] = useState(DUMMY);
+  const [searchResult, setSearchResult] = useState({});
 
   const searchInput = async (searchValue: string) => {
     if (!getItem("search")) {
@@ -42,7 +42,15 @@ const SearchTab = () => {
           </Box>
         </Box>
       </Box>
-      <VideoList videos={searchResult} tab="search" buttonClick={() => null} />
+      {Object.keys(searchResult).length ? (
+        <VideoList
+          videos={searchResult}
+          tab="search"
+          buttonClick={() => null}
+        />
+      ) : (
+        ""
+      )}
     </>
   );
 };
